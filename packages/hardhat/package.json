@@ -5,7 +5,7 @@
     "account": "hardhat run scripts/listAccount.ts",
     "chain": "hardhat node --network hardhat --no-deploy",
     "compile": "hardhat compile",
-    "deploy": "hardhat deploy",
+    "deploy": "hardhat deploy --network sepolia",
     "fork": "MAINNET_FORKING_ENABLED=true hardhat node --network hardhat --no-deploy",
     "generate": "hardhat run scripts/generateAccount.ts",
     "flatten": "hardhat flatten",
@@ -14,6 +14,7 @@
     "format": "prettier --write ./*.ts ./deploy/**/*.ts ./scripts/**/*.ts ./test/**/*.ts",
     "test": "REPORT_GAS=true hardhat test --network hardhat",
     "verify": "hardhat etherscan-verify",
+    "verify:sepolia": "hardhat verify --network sepolia 0x78e0D07C4A08adFfe610113310163b40E7e47e81 0x3f15B8c6F9939879Cb030D6dd935348E57109637",
     "hardhat-verify": "hardhat verify"
   },
   "devDependencies": {

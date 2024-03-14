@@ -1,9 +1,9 @@
-import { HardhatRuntimeEnvironment } from "hardhat/types";
-import { DeployFunction } from "hardhat-deploy/types";
 import { Contract } from "ethers";
+import { DeployFunction } from "hardhat-deploy/types";
+import { HardhatRuntimeEnvironment } from "hardhat/types";
 
 /**
- * Deploys a contract named "YourContract" using the deployer account and
+ * Deploys a contract named "USDCAllo" using the deployer account and
  * constructor arguments set to the deployer address
  *
  * @param hre HardhatRuntimeEnvironment object.
@@ -22,7 +22,7 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   const { deployer } = await hre.getNamedAccounts();
   const { deploy } = hre.deployments;
 
-  await deploy("YourContract", {
+  await deploy("USDCAllo", {
     from: deployer,
     // Contract constructor arguments
     args: [deployer],
@@ -33,12 +33,24 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   });
 
   // Get the deployed contract to interact with it after deploying.
-  const yourContract = await hre.ethers.getContract<Contract>("YourContract", deployer);
-  console.log("👋 Initial greeting:", await yourContract.greeting());
+  const uSDCAllo = await hre.ethers.getContract<Contract>("USDCAllo", deployer);
+
+  console.log("USDCAllo deployed to:", uSDCAllo.address);
+
+  console.log("\nVerifying contract...");
+  await new Promise((r) => setTimeout(r, 20000));
+  try {
+    await hre.run("verify:verify", {
+      address: uSDCAllo.address,
+      constructorArguments: [],
+    });
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 export default deployYourContract;
 
 // Tags are useful if you have multiple deploy files and only want to run one of them.
-// e.g. yarn deploy --tags YourContract
-deployYourContract.tags = ["YourContract"];
+// e.g. yarn deploy --tags USDCAllo
+deployYourContract.tags = ["USDCAllo"];
